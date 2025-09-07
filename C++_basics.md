@@ -3,6 +3,7 @@
 ## Part A - Expressions & Assignments
 
 ## A1: Precedence check
+Here is the code
 ```cpp
 #include <iostream>
 int main() {
@@ -22,6 +23,7 @@ int main() {
 }
 ```
 ## A2: Compound assignment
+Here is the code
 ```cpp
 #include <iostream>
 #include <iomanip>
@@ -48,6 +50,7 @@ int main() {
 ## Part B - Implicit vs Explicit Conversion
 
 ## B1: The average trap
+Here is the code
 ```cpp
 #include <iostream>
 #include <iomanip>
@@ -68,6 +71,7 @@ int main() {
 ```
 
 ## B2: Percentage with safe casting
+Here is the code
 ```cpp
 #include <iostream>
 #include <iomanip>
@@ -89,6 +93,7 @@ int main() {
 ```
 
 ## Part C - Paycheck Calculator
+Here is the code
 ```cpp
 #include <iostream>
 #include <iomanip>
@@ -114,6 +119,7 @@ int main() {
 }
 ```
 ## Part D - Debugging
+Here is the code
 ```cpp
 #include <iostream>
 #include <iomanip>
