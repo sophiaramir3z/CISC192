@@ -141,3 +141,9 @@ int main() {
     return 0;
 }
 ```
+## README
+One lesson about implicit and explicit conversion:
+- Using integer types in division silently truncates toward zero. Casting to double before dividing preserves the fractional component, for example `sum / 3` loses decimals while `static_cast<double>(sum) / 3.0` keeps them.
+
+One bug fixed and how it was found:
+- The discount was computed with an integer percentage, which can cause unintended integer arithmetic if not cast. By inspecting the expression and types, the fix is to promote the percentage to double with `static_cast<double>(discountPercent) / 100.0`, which produces the correct fractional discount and matches expected totals.
