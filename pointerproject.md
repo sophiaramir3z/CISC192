@@ -396,3 +396,48 @@ int main() {
 }
 
 ```
+
+## UML.txt
+
+### Task Class
+
+| Visibility | Member | Type | Description |
+|----------|-------|------|-------------|
+| private | id | int | Unique task identifier |
+| private | description | string | Task description |
+| private | completed | bool | Completion status |
+| public | Task() | constructor | Default constructor |
+| public | Task(int, string) | constructor | Initializes id and description |
+| public | markCompleted() | void | Marks task as completed |
+| public | isCompleted() | bool | Returns completion status |
+| public | getId() | int | Returns task ID |
+| public | getDescription() | string | Returns task description |
+
+### TaskManager Class
+
+| Visibility | Member | Type | Description |
+|----------|-------|------|-------------|
+| private | tasks | unique_ptr\<Task[]\> | Owns dynamic task array |
+| private | size | int | Current number of tasks |
+| private | capacity | int | Maximum array size |
+| private | nextId | int | Auto-increment task ID |
+| private | resize(int) | void | Resizes task array |
+| public | TaskManager(int) | constructor | Initializes manager |
+| public | addTask(string) | void | Adds a new task |
+| public | removeTask(int) | void | Removes task by ID |
+| public | markTaskCompleted(int) | void | Marks task completed |
+| public | listTasks() | void | Displays all tasks |
+
+### Class Relationship
+
+| From | To | Relationship |
+|----|----|-------------|
+| TaskManager | Task | Has-a (owns Task objects via array) |
+
+
+## Reflection
+This project compares three pointer strategies in C++ through the same Task Manager design. In Part A, Task objects are created on the stack inside runPartA(), and raw pointers are used only to reference these existing objects. The function completeTask(Task* t) demonstrates dereferencing and method calls through a pointer without any ownership. My main focus here was understanding that stack pointers are non-owning aliases, and that no delete should ever be used. I had to be careful not to treat these pointers as owners, since doing so would cause undefined behavior once the stack frame ends.
+
+In Part B, tasks are stored in a heap-allocated array created with new Task[capacity], which makes the pointer tasks responsible for memory ownership. The biggest challenge in this part was implementing resizing safely. I had to think carefully about the order of operations: allocate a new array, copy existing elements, delete the old array with delete[], and then update the pointer. Any mistake in this process could lead to memory leaks or invalid memory access. This part made it clear how easy it is to introduce bugs when manually managing heap memory, even for relatively simple data structures.
+
+In Part C, the same logic is implemented using std::unique_ptr<Task[]> inside the TaskManager class. My thought process here was to eliminate as much manual memory reasoning as possible by encoding ownership directly into the type system. Using make_unique and move semantics during resizing removed the need for explicit delete calls and made the code easier to reason about. This version is the safest because RAII guarantees cleanup and clearly defines ownership, reducing both cognitive load and the risk of memory errors.
